@@ -3,11 +3,15 @@ package com.example.codelab
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.example.codelab.ui.theme.CodelabTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CodelabTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    LayoutsCodelab()
                 }
             }
         }
@@ -24,14 +28,37 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun LayoutsCodelab() {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = "LayoutsCodelab")
+                },
+                actions = {
+                    IconButton(onClick = {  }) {
+                        Icon(Icons.Filled.Favorite, contentDescription = null)
+                    }
+                }
+            )
+        }
+    ) { innerPadding ->
+        BodyContent(Modifier.padding(innerPadding).padding(8.dp))
+    }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun BodyContent(modifier: Modifier = Modifier) {
+    Column(modifier = modifier) {
+        Text(text = "Hi there!")
+        Text(text = "Thanks for going through the Layouts codelab")
+    }
+}
+
+@Preview
+@Composable
+fun LayoutsCodelabPreview() {
     CodelabTheme {
-        Greeting("Android")
+        LayoutsCodelab()
     }
 }
