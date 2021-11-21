@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.codelab.ui.theme.CodelabTheme
-import com.example.codelab.ui.widgets.MyOwnColumn
-import com.example.codelab.ui.widgets.ScrollingList
+import com.example.codelab.ui.widgets.Chip
+import com.example.codelab.ui.widgets.StaggeredGrid
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             CodelabTheme {
                 Surface(color = MaterialTheme.colors.background) {
-                    ScrollingList()
+                    BodyContent()
                 }
             }
         }
@@ -53,11 +53,10 @@ fun LayoutsCodelab() {
 
 @Composable
 fun BodyContent(modifier: Modifier = Modifier) {
-    MyOwnColumn(modifier = modifier.padding(8.dp)) {
-        Text("MyOwnColumn")
-        Text("places items")
-        Text("vertically.")
-        Text("We've done it by hand!")
+    StaggeredGrid(modifier = modifier, rows = 5) {
+        for (topic in topics) {
+            Chip(modifier = Modifier.padding(8.dp), text = topic)
+        }
     }
 }
 
@@ -68,3 +67,9 @@ fun LayoutsCodelabPreview() {
         LayoutsCodelab()
     }
 }
+
+val topics = listOf(
+    "Arts & Crafts", "Beauty", "Books", "Business", "Comics", "Culinary",
+    "Design", "Fashion", "Film", "History", "Maths", "Music", "People", "Philosophy",
+    "Religion", "Social sciences", "Technology", "TV", "Writing"
+)
