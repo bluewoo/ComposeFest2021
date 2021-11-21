@@ -62,20 +62,10 @@ fun TodoScreen(
             items(items = items) {
                 TodoRow(
                     todo = it,
-                    onItemClicked = { onRemoveItem(it) },
+                    onItemClicked = onRemoveItem,
                     modifier = Modifier.fillParentMaxWidth()
                 )
             }
-        }
-
-        // For quick testing, a random item generator button
-        Button(
-            onClick = { onAddItem(generateRandomTodoItem()) },
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-        ) {
-            Text("Add random item")
         }
     }
 }
