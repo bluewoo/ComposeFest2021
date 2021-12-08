@@ -77,8 +77,7 @@ fun RallyApp() {
         ) { innerPadding ->
             RallyNavHost(
                 navController = navController,
-                innerPadding = innerPadding,
-                accountsName = RallyScreen.Accounts.name
+                modifier = Modifier.padding(innerPadding)
             )
         }
     }
@@ -87,24 +86,24 @@ fun RallyApp() {
 @Composable
 fun RallyNavHost(
     navController: NavHostController,
-    innerPadding: PaddingValues,
-    accountsName: String
+    modifier: Modifier = Modifier,
+    accountsName: String = RallyScreen.Accounts.name
 ) {
     NavHost(
         navController = navController,
         startDestination = RallyScreen.Overview.name,
-        modifier = Modifier.padding(innerPadding)
+        modifier = modifier
     ) {
         composable(RallyScreen.Overview.name) {
             OverviewBody(
                 onClickSeeAllAccounts = { navController.navigate(RallyScreen.Accounts.name) },
                 onClickSeeAllBills = { navController.navigate(RallyScreen.Bills.name) },
-                onAccountClick =  { navigateToSingleAccount(navController, it) }
+                onAccountClick = { name -> navController.navigate("$accountsName/$name") }
             )
         }
         composable(RallyScreen.Accounts.name) {
             AccountsBody(accounts = UserData.accounts) { name ->
-                navigateToSingleAccount(navController, name)
+                navController.navigate("$accountsName/${name}")
             }
         }
         composable(RallyScreen.Bills.name) {
@@ -126,11 +125,4 @@ fun RallyNavHost(
             SingleAccountBody(account)
         }
     }
-}
-
-private fun navigateToSingleAccount(
-    navController: NavHostController,
-    accountName: String
-) {
-    navController.navigate("${RallyScreen.Accounts.name}/$accountName")
 }
