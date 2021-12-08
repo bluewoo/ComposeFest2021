@@ -51,4 +51,17 @@ class TopAppBarTest {
             )
             .assertExists()
     }
+
+    @Test
+    fun rallyTopAppBarTest_clickTabs() {
+        composeTestRule.setContent {
+            RallyApp()
+        }
+
+        RallyScreen.values().forEach { screen ->
+            composeTestRule.onNodeWithContentDescription(screen.name)
+                .performClick()
+                .assertIsSelected()
+        }
+    }
 }
